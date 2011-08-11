@@ -1,0 +1,7 @@
+R2D2 Processing Pitch
+
+A human voice pitch detector in Processing based on Minim audio library.
+
+It currently implements Autocorrelation (AMDF, which works surprisingly well) and Harmonic Product Spectrum (which doesn't work quite well yet).
+
+PitchProject.pde shows how to use involved classes in order to extract pitch from .wav files or microphone input.
