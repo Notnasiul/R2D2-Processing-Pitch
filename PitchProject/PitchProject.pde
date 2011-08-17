@@ -1,12 +1,12 @@
 /* R2D2 Pitch Processing
- * 
- * Audio analysis for pitch extraction using 
+ *
+ * Audio analysis for pitch extraction using
  * Autocorrelation or Harmonic Product Spectrum.
  *
  * Relies on Minim audio library
  * http://code.compartmental.net/tools/minim/
- * 
- * L. Anton-Canalis (info@luisanton.es) 
+ *
+ * L. Anton-Canalis (info@luisanton.es)
  */
 
 import processing.opengl.*;
@@ -40,7 +40,7 @@ void setup()
   size(600, 500, OPENGL);
   minim = new Minim(this);
   minim.debugOn();
-  
+
   AS = new AudioSource(minim);
 
   // Choose .wav file to analyze
@@ -50,23 +50,23 @@ void setup()
     chooser.setFileFilter(chooser.getAcceptAllFileFilter());
     int returnVal = chooser.showOpenDialog(null);
     if (returnVal == JFileChooser.APPROVE_OPTION) {
-	  filename = chooser.getSelectedFile().getPath();
+    filename = chooser.getSelectedFile().getPath();
       AS.OpenAudioFile(chooser.getSelectedFile().getPath(), 5, 1024); //1024 for AMDF
       ok = true;
     }
   }
 
   // Comment the previous block and uncomment the next line for microphone input
-  //AS.OpenMicrophone();  
-  
-  PD = new PitchDetector();  //This one uses Autocorrelation
+  //AS.OpenMicrophone();
+
+  PD = new PitchDetectorAutocorrelation();  //This one uses Autocorrelation
   //PD = new PitchDetectorHPS(); //This one uses Harmonit Product Spectrum -not working yet-
   PD.SetSampleRate(AS.GetSampleRate());
   AS.SetListener(PD);
   TG = new ToneGenerator (minim, AS.GetSampleRate());
-  
+
   rectMode(CORNERS);
-  background(0);  
+  background(0);
   fill(0);
   stroke(255);
 }
@@ -75,16 +75,16 @@ void setup()
 void draw()
 {
   if (begin_playing_time == -1)
-	begin_playing_time = millis();
-	
-  float f = 0;  
+  begin_playing_time = millis();
+
+  float f = 0;
   float level = AS.GetLevel();
   long t = PD.GetTime();
   if (t == last_t) return;
   last_t = t;
   int xpos = (int)t % width;
   if (xpos >= width-1) {
-     rect(0,0,width,height);     
+     rect(0,0,width,height);
   }
 
   f = PD.GetFrequency();
@@ -98,7 +98,7 @@ void draw()
 
   TG.SetFrequency(f);
   TG.SetLevel(level * 10.0);
-  
+
   stroke(level * 255.0 * 10.0);
   line(xpos, height, xpos, height-(level - last_level) - 300);
   avg_level = level;
@@ -111,11 +111,11 @@ void stop()
 {
   TG.Close();
   AS.Close();
-  
+
   minim.stop();
-  
+
   println("Se acabo");
-  
+
   super.stop();
 }
 

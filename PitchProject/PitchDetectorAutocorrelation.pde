@@ -15,7 +15,7 @@ class PitchDetectorAutocorrelation implements AudioListener {
   float current_frequency = 0;
   long t;
 
-  PitchDetector () {
+  PitchDetectorAutocorrelation () {
 	t = 0;
   }
   
