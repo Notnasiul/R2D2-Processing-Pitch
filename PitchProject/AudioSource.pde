@@ -44,7 +44,7 @@ class AudioSource
   }
   
   void OpenMicrophone () {
-    microphone = minim.getLineIn(Minim.MONO, 512, 11025);
+    microphone = minim.getLineIn(Minim.MONO, 512, 44100);
   }
   
   float GetSampleRate() {
