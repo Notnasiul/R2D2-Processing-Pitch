@@ -1,6 +1,7 @@
 /* R2D2 Pitch Processing
  * 
- * Audio analysis for pitch extraction 
+ * Audio analysis for pitch extraction using 
+ * Autocorrelation or Harmonic Product Spectrum.
  * 
  * TODO: Both PitchDetectorHPS and this class should inherit from a base PitchDetector class...
  *
