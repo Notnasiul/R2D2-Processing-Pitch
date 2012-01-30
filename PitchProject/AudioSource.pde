@@ -1,7 +1,6 @@
 /* R2D2 Pitch Processing
  * 
- * Audio analysis for pitch extraction using 
- * Autocorrelation or Harmonic Product Spectrum.
+ * Audio analysis for pitch extraction 
  *
  * Audio Source extracts audio from wav files or microphones
  * 
@@ -44,7 +43,7 @@ class AudioSource
   }
   
   void OpenMicrophone () {
-    microphone = minim.getLineIn(Minim.MONO, 512, 44100);
+    microphone = minim.getLineIn(Minim.MONO, 2048, 44100);
   }
   
   float GetSampleRate() {
