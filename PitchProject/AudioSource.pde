@@ -43,6 +43,7 @@ class AudioSource
   }
   
   void OpenMicrophone () {
+<<<<<<< HEAD
     microphone = minim.getLineIn(Minim.MONO, 2048, 44100);
     microphone = minim.getLineIn(Minim.MONO, 512, 44100);
   }
