@@ -9,3 +9,4 @@ AudioSource.pde - gets audio from wav files or microphones
 ToneGenerator.pde - creates an output tone with a triangle wave
 PitchDetectorAutocorrelation.pde - an audio listener that uses Autocorrelation to extract pitch from captured sound
 PitchDetectorHPS - an audio listaner that uses Harmonic Product Spectrum to extract pitch from captured sound (not working yet)
+PitchDetectorFFT - Uses Fast Fourier Transform to naively find the bin with the highest amplitude. Works nicely with monophonic sounds (i.e. whistling)
