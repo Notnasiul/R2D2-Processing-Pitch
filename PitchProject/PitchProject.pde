@@ -1,7 +1,6 @@
 /* R2D2 Pitch Processing
  *
- * Audio analysis for pitch extraction using
- * Autocorrelation or Harmonic Product Spectrum.
+ * Audio analysis for pitch extraction 
  *
  * Relies on Minim audio library
  * http://code.compartmental.net/tools/minim/
@@ -18,8 +17,9 @@ import ddf.minim.effects.*;
 import ddf.minim.signals.*;
 import ddf.minim.*;
 
-PitchDetectorAutocorrelation PD; //Autocorrelation
+//PitchDetectorAutocorrelation PD; //Autocorrelation
 //PitchDetectorHPS PD; //Harmonic Product Spectrum -not working yet-
+PitchDetectorFFT PD; // Naive
 ToneGenerator TG;
 AudioSource AS;
 Minim minim;
@@ -43,6 +43,7 @@ void setup()
 
   AS = new AudioSource(minim);
 
+  /*
   // Choose .wav file to analyze
   boolean ok = false;
   while (!ok) {
@@ -55,11 +56,14 @@ void setup()
       ok = true;
     }
   }
+  */
 
   // Comment the previous block and uncomment the next line for microphone input
   AS.OpenMicrophone();
 
-  PD = new PitchDetectorAutocorrelation();  //This one uses Autocorrelation
+  PD = new PitchDetectorFFT();
+  PD.ConfigureFFT(2048, AS.GetSampleRate());
+  // PD = new PitchDetectorAutocorrelation();  //This one uses Autocorrelation
   //PD = new PitchDetectorHPS(); //This one uses Harmonit Product Spectrum -not working yet-
   PD.SetSampleRate(AS.GetSampleRate());
   AS.SetListener(PD);
@@ -89,18 +93,17 @@ void draw()
 
   f = PD.GetFrequency();
 
-  freq_buffer[freq_buffer_index] = f;
+  /*freq_buffer[freq_buffer_index] = f;
   freq_buffer_index++;
   freq_buffer_index = freq_buffer_index % freq_buffer.length;
   sorted = sort(freq_buffer);
 
-  f = sorted[5];
-
+  f = sorted[5];*/
   TG.SetFrequency(f);
   TG.SetLevel(level * 10.0);
 
   stroke(level * 255.0 * 10.0);
-  line(xpos, height, xpos, (height-f));
+  line(xpos, height, xpos, height - f / 5.0f);
   avg_level = level;
   last_level = f;
 }

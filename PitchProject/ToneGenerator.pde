@@ -1,7 +1,6 @@
 /* R2D2 Pitch Processing
  * 
- * Audio analysis for pitch extraction using 
- * Autocorrelation or Harmonic Product Spectrum.
+ * Audio analysis for pitch extraction 
  *
  * Generates an output tone using a triangle weave
  * 
