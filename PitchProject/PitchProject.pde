@@ -37,7 +37,7 @@ float begin_playing_time = -1;
 
 void setup()
 {
-  size(600, 500, OPENGL);
+  size(600, 500, P2D);
   minim = new Minim(this);
   minim.debugOn();
 
@@ -51,13 +51,13 @@ void setup()
     int returnVal = chooser.showOpenDialog(null);
     if (returnVal == JFileChooser.APPROVE_OPTION) {
     filename = chooser.getSelectedFile().getPath();
-      AS.OpenAudioFile(chooser.getSelectedFile().getPath(), 5, 1024); //1024 for AMDF
+      AS.OpenAudioFile(chooser.getSelectedFile().getPath(), 5, 512); //1024 for AMDF
       ok = true;
     }
   }
 
   // Comment the previous block and uncomment the next line for microphone input
-  //AS.OpenMicrophone();
+  AS.OpenMicrophone();
 
   PD = new PitchDetectorAutocorrelation();  //This one uses Autocorrelation
   //PD = new PitchDetectorHPS(); //This one uses Harmonit Product Spectrum -not working yet-
@@ -100,7 +100,7 @@ void draw()
   TG.SetLevel(level * 10.0);
 
   stroke(level * 255.0 * 10.0);
-  line(xpos, height, xpos, height-(level - last_level) - 300);
+  line(xpos, height, xpos, (height-f));
   avg_level = level;
   last_level = f;
 }
