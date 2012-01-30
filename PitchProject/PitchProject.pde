@@ -104,7 +104,6 @@ void draw()
 
   stroke(level * 255.0 * 10.0);
   line(xpos, height, xpos, height - f / 5.0f);
-  line(xpos, height, xpos, (height-f));
   avg_level = level;
   last_level = f;
 }
